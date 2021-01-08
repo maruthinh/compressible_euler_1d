@@ -1,0 +1,13 @@
+#problem 1 from toro book, shock tube with sonic point
+#grid information
+0.0 	#lower limit of the grid=xll
+1.0 	#upper limit of the grid=xul
+0.3	#position at which ini discontinuity is located=x0
+#initial conditions
+1.0  	#density at left state=Prim_var_L[0]
+0.75 	#velocity at left state=Prim_var_L[1]
+1.0  	#pressure at the left state=Prim_var_L[2]
+0.125 	#density at right state=Prim_var_L[0]
+0.0   	#velocity at right state=Prim_var_L[1]
+0.1   	#pressure at the right state=Prim_var_L[2]
+0.2 	#final time at which computations will be stopped=t_fin

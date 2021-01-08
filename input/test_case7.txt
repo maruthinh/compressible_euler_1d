@@ -1,0 +1,13 @@
+#problem 7 taken from zhang and shu, steady shock discontinuity of mach 2
+#grid information
+0.0 	#lower limit of the grid=xll
+1.0 	#upper limit of the grid=xul
+0.5	#position at which ini discontinuity is located=x0
+#initial conditions
+1.0  			#density at left state=Prim_var_L[0]
+1.0 			#velocity at left state=Prim_var_L[1]
+0.17857142857142858  	#pressure at the left state=Prim_var_L[2]
+2.6666666666666665 	#density at right state=Prim_var_L[0]
+0.375 			#velocity at right state=Prim_var_L[1]
+0.8035714285714286 	#pressure at the right state=Prim_var_L[2]
+200.0 			#final time at which computations will be stopped, i.e, at which it will reach steady state=t_fin

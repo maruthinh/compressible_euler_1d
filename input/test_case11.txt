@@ -1,0 +1,14 @@
+#problem 11 shock-entropy wave interaction taken from Balsara and Shu, JCP, 2000, 405-452, doi:10.1006/jcph.2000.6443
+#grid information
+-1.0 	#lower limit of the grid=xll
+1.0 	#upper limit of the grid=xul
+-0.8	#position at which ini discontinuity is located=x0
+#initial conditions
+3.857143  		#density at left state=Prim_var_L[0]
+2.629369 		#velocity at left state=Prim_var_L[1]
+10.33333 		#pressure at the left state=Prim_var_L[2]
+1+0.2 sin(5*pi*x[i])	#density at right state=Prim_var_R[0]
+0.0  			#velocity at right state=Prim_var_R[1]
+1.0   			#pressure at the right state=Prim_var_R[2]
+0.47 			#final time at which computations will be stopped=t_fin
+

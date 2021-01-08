@@ -1,0 +1,13 @@
+#problem 5 from toro book, slowly moving contact
+#grid information
+0.0 	#lower limit of the grid=xll
+1.0 	#upper limit of the grid=xul
+0.8	#position at which ini discontinuity is located=x0
+#initial conditions
+1.0  	#density at left state=Prim_var_L[0]
+-19.59745 	#velocity at left state=Prim_var_L[1]
+1000.0  	#pressure at the left state=Prim_var_L[2]
+1.0 	#density at right state=Prim_var_L[0]
+-19.59745   	#velocity at right state=Prim_var_L[1]
+0.01   	#pressure at the right state=Prim_var_L[2]
+0.012 	#final time at which computations will be stopped=t_fin

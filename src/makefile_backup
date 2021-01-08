@@ -1,0 +1,73 @@
+#declare the variable
+CC=g++
+
+CFLAGS=-c -Wall
+
+all: euler1d
+
+euler1d: read_input.o read_test_case.o read_test_case_two.o initialize_variables.o grid_compute.o initial_conditions.o initial_conditions_two.o initial_conditions_oscil.o boundary_conditions.o lr_state.o flux_llf.o flux_movers.o flux_movers_h.o flux_movers_le.o flux_movers_cp.o time_step.o solver.o solver_explicit.o write_solution.o main.o 
+	$(CC) read_input.o read_test_case.o read_test_case_two.o initialize_variables.o grid_compute.o initial_conditions.o initial_conditions_two.o initial_conditions_oscil.o boundary_conditions.o lr_state.o flux_llf.o flux_movers.o flux_movers_h.o flux_movers_le.o flux_movers_cp.o time_step.o solver.o solver_explicit.o write_solution.o main.o -o euler1d
+
+read_input.o:read_input.cpp
+	$(CC) $(CFLAGS) read_input.cpp
+
+read_test_case.o:read_test_case.cpp
+	$(CC) $(CFLAGS) read_test_case.cpp
+
+read_test_case_two.o:read_test_case_two.cpp
+	$(CC) $(CFLAGS) read_test_case_two.cpp
+
+initialize_variables.o:initialize_variables.cpp
+	$(CC) $(CFLAGS) initialize_variables.cpp
+
+grid_compute.o:grid_compute.cpp
+	$(CC) $(CFLAGS) grid_compute.cpp
+
+initial_conditions.o:initial_conditions.cpp
+	$(CC) $(CFLAGS) initial_conditions.cpp
+
+initial_conditions_two.o:initial_conditions_two.cpp
+	$(CC) $(CFLAGS) initial_conditions_two.cpp
+
+initial_conditions_oscil.o:initial_conditions_oscil.cpp
+	$(CC) $(CFLAGS) initial_conditions_oscil.cpp
+
+boundary_conditions.o:boundary_conditions.cpp
+	$(CC) $(CFLAGS) boundary_conditions.cpp
+
+lr_state.o:lr_state.cpp
+	$(CC) $(CFLAGS) lr_state.cpp
+
+flux_llf.o:flux_llf.cpp
+	$(CC) $(CFLAGS) flux_llf.cpp
+
+flux_movers.o:flux_movers.cpp
+	$(CC) $(CFLAGS) flux_movers.cpp
+
+flux_movers_h.o:flux_movers_h.cpp
+	$(CC) $(CFLAGS) flux_movers_h.cpp
+
+flux_movers_le.o:flux_movers_le.cpp
+	$(CC) $(CFLAGS) flux_movers_le.cpp
+
+flux_movers_cp.o:flux_movers_cp.cpp
+	$(CC) $(CFLAGS) flux_movers_cp.cpp
+
+time_step.o:time_step.cpp
+	$(CC) $(CFLAGS) time_step.cpp
+
+solver.o:solver.cpp
+	$(CC) $(CFLAGS) solver.cpp
+
+solver_explicit.o:solver_explicit.cpp
+	$(CC) $(CFLAGS) solver_explicit.cpp
+
+write_solution.o:write_solution.cpp
+	$(CC) $(CFLAGS) write_solution.cpp
+
+main.o: main.cpp
+	$(CC) $(CFLAGS) main.cpp
+
+
+clean: 
+	rm -rf *o euler1d

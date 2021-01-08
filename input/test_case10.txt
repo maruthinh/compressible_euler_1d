@@ -1,0 +1,17 @@
+#problem 10 from Toro, (IJNMF, 2014, DOI: 10.1002/fld.3903)
+#grid information
+0.0 	#lower limit of the grid=xll
+1.0 	#upper limit of the grid=xul
+0.1	#position at which first ini discontinuity is located=x01
+0.9	#position at which first ini discontinuity is located=x02
+#initial conditions
+1.0  	#density at left state=Prim_var_L[0]
+0.0 	#velocity at left state=Prim_var_L[1]
+1000.0  #pressure at the left state=Prim_var_L[2]
+1.0  	#density at mid state=Prim_var_M[0]
+0.0 	#velocity at mid state=Prim_var_M[1]
+0.01    #pressure at the mid state=Prim_var_M[2]
+1.0	#density at right state=Prim_var_L[0]
+0.0  	#velocity at right state=Prim_var_L[1]
+100.0  	#pressure at the right state=Prim_var_L[2]
+0.038 	#final time at which computations will be stopped=t_fin

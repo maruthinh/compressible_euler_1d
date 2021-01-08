@@ -1,0 +1,182 @@
+#include "global_declarations.h"
+#include "basic_functions.h"
+
+/****time update is done here****/
+
+void Solver(int ib, int id1, int id2, double *&x, double **&cv, double **&cv_old, double *&p, double **&L_state,
+            double **&R_state, double **&residue, double &dt){
+
+	for(int i=1; i<=id1; i++){
+
+		cv_old[0][i] = cv[0][i];
+		cv_old[1][i] = cv[1][i];
+		cv_old[2][i] = cv[2][i];
+	}
+
+	dt=Time_Step(ib, imax, cfl, x, cv, p);
+	
+	LR_State(ib, id1, imax, x, cv, p, L_state, R_state);
+
+	if(flux_type=="llf"){
+
+		Flux_LLF(ib, imax, L_state, R_state, residue);
+	}
+	else if(flux_type=="movers"){
+
+		Flux_Movers(ib, imax, L_state, R_state, residue);
+	}
+	else if(flux_type=="movers_h"){
+
+		Flux_Movers_H(ib, imax, L_state, R_state, residue);
+	}
+	else if(flux_type=="movers_le"){
+
+		Flux_Movers_LE(ib, imax, L_state, R_state, residue);
+	}
+	else if(flux_type=="movers_cp"){
+
+		Flux_Movers_CP(ib, imax, L_state, R_state, residue);
+	}
+	else if(flux_type=="kfds"){
+
+        Flux_KFDS(ib, id1, id2, L_state, R_state, residue);
+	}
+    else if(flux_type=="kfds_movers"){
+
+        Flux_KFDS_Movers(ib, imax, L_state, R_state, residue);
+    }
+    else if(flux_type=="kfds2nd"){
+
+        Flux_KFDS2nd_Order(ib, imax, cv, p, t, residue);
+    }
+	else if(flux_type=="kfds2nd_movers"){
+        Flux_Con_Var_Defns(ib, imax, cv, p, Dcv, Acv, Dflux, Aflux);
+        Flux_KFDS2nd_Movers(ib, id1, id2, cv, Dcv, Acv, p, t, flux, Dflux, Aflux, residue);
+	}
+	for(int i=2; i<=ib; i++){
+	
+		cv[0][i] = cv_old[0][i]-dt*residue[0][i];
+		cv[1][i] = cv_old[1][i]-dt*residue[1][i];
+		cv[2][i] = cv_old[2][i]-dt*residue[2][i];
+						
+		//update pressure
+	
+		p[i]=(Gamma-1.0)*(cv[2][i]-0.5*cv[1][i]*cv[1][i]/cv[0][i]);
+		
+	}
+
+	Boundary_Condition(2, ib, cv, p);
+
+	dt=Time_Step(ib, imax, cfl, x, cv, p);
+	
+	LR_State(ib, id1, imax, x, cv, p, L_state, R_state);
+
+	if(flux_type=="llf"){
+
+		Flux_LLF(ib, imax, L_state, R_state, residue);
+	}
+	else if(flux_type=="movers"){
+
+		Flux_Movers(ib, imax, L_state, R_state, residue);
+	}
+	else if(flux_type=="movers_h"){
+
+		Flux_Movers_H(ib, imax, L_state, R_state, residue);
+	}
+	else if(flux_type=="movers_le"){
+
+		Flux_Movers_LE(ib, imax, L_state, R_state, residue);
+	}
+	else if(flux_type=="movers_cp"){
+
+		Flux_Movers_CP(ib, imax, L_state, R_state, residue);
+	}
+	else if(flux_type=="kfds"){
+
+        Flux_KFDS(ib, id1, id2, L_state, R_state, residue);
+	}
+    else if(flux_type=="kfds_movers"){
+
+        Flux_KFDS_Movers(ib, imax, L_state, R_state, residue);
+    }
+    else if(flux_type=="kfds2nd"){
+
+        Flux_KFDS2nd_Order(ib, imax, cv, p, t, residue);
+    }
+	else if(flux_type=="kfds2nd_movers"){
+        Flux_Con_Var_Defns(ib, imax, cv, p, Dcv, Acv, Dflux, Aflux);
+        Flux_KFDS2nd_Movers(ib, id1, id2, cv, Dcv, Acv, p, t, flux, Dflux, Aflux, residue);
+	}
+
+	for(int i=2; i<=ib; i++){
+	
+		cv[0][i] = (3.0/4.0)*cv_old[0][i]+(1.0/4.0)*cv[0][i]-(1.0/4.0)*dt*residue[0][i];
+		cv[1][i] = (3.0/4.0)*cv_old[1][i]+(1.0/4.0)*cv[1][i]-(1.0/4.0)*dt*residue[1][i];
+		cv[2][i] = (3.0/4.0)*cv_old[2][i]+(1.0/4.0)*cv[2][i]-(1.0/4.0)*dt*residue[2][i];
+						
+		//update pressure
+	
+		p[i]=(Gamma-1.0)*(cv[2][i]-0.5*cv[1][i]*cv[1][i]/cv[0][i]);
+		
+	}
+
+	Boundary_Condition(2, ib, cv, p);
+
+    dt=Time_Step(ib, imax, cfl, x, cv, p);
+	
+	LR_State(ib, id1, imax, x, cv, p, L_state, R_state);
+
+	if(flux_type=="llf"){
+
+		Flux_LLF(ib, imax, L_state, R_state, residue);
+	}
+	else if(flux_type=="movers"){
+
+		Flux_Movers(ib, imax, L_state, R_state, residue);
+	}
+	else if(flux_type=="movers_h"){
+
+		Flux_Movers_H(ib, imax, L_state, R_state, residue);
+	}
+	else if(flux_type=="movers_le"){
+
+		Flux_Movers_LE(ib, imax, L_state, R_state, residue);
+	}
+	else if(flux_type=="movers_cp"){
+
+		Flux_Movers_CP(ib, imax, L_state, R_state, residue);
+	}
+	else if(flux_type=="kfds"){
+
+        Flux_KFDS(ib, id1, id2, L_state, R_state, residue);
+	}
+	else if(flux_type=="kfds_movers"){
+
+        Flux_KFDS_Movers(ib, imax, L_state, R_state, residue);
+	}
+    else if(flux_type=="kfds2nd"){
+
+        Flux_KFDS2nd_Order(ib, imax, cv, p, t, residue);
+    }
+	else if(flux_type=="kfds2nd_movers"){
+        Flux_Con_Var_Defns(ib, imax, cv, p, Dcv, Acv, Dflux, Aflux);
+        Flux_KFDS2nd_Movers(ib, id1, id2, cv, Dcv, Acv, p, t, flux, Dflux, Aflux, residue);
+	}
+
+
+	for(int i=2; i<=ib; i++){
+	
+		cv[0][i] = (1.0/3.0)*cv_old[0][i]+(2.0/3.0)*cv[0][i]-(2.0/3.0)*dt*residue[0][i];
+		cv[1][i] = (1.0/3.0)*cv_old[1][i]+(2.0/3.0)*cv[1][i]-(2.0/3.0)*dt*residue[1][i];
+		cv[2][i] = (1.0/3.0)*cv_old[2][i]+(2.0/3.0)*cv[2][i]-(2.0/3.0)*dt*residue[2][i];
+						
+		//update pressure
+	
+		p[i]=(Gamma-1.0)*(cv[2][i]-0.5*cv[1][i]*cv[1][i]/cv[0][i]);
+
+		if (isnan(p[i])) {
+			std::cout<<"p became negative at i=""\t"<<p[i]<<std::endl;
+			exit(0);
+		}
+	}
+}

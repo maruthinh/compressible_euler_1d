@@ -1,0 +1,13 @@
+#problem 4 from toro book, several strong shock problem
+#grid information
+0.0 	#lower limit of the grid=xll
+1.0 	#upper limit of the grid=xul
+0.4	#position at which ini discontinuity is located=x0
+#initial conditions
+5.99924  	#density at left state=Prim_var_L[0]
+19.5975 	#velocity at left state=Prim_var_L[1]
+460.894  	#pressure at the left state=Prim_var_L[2]
+5.99924 	#density at right state=Prim_var_L[0]
+-6.19633   	#velocity at right state=Prim_var_L[1]
+40.0950   	#pressure at the right state=Prim_var_L[2]
+0.035 	#final time at which computations will be stopped=t_fin
